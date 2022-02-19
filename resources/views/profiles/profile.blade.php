@@ -8,11 +8,11 @@
                 <img src="/storage/{{$user->profile->image ?? 'profiles/default.jpg'}}" class="rounded-circle" style="height: 200px;width: 200px;" alt="Profile Image ">
             </div>
 
-{{--            @can('update',$user->profile)--}}
+            @can('update',$user->profile)
                  <div class="d-flex justify-content-center">
-                <a href="/profile/{{$user->id}}/edit" class="btn col-9 btn-primary justify-content-center btn-outline-light">Edit Profile</a>
-            </div>
-{{--            @endcan--}}
+                    <a href="/profile/{{$user->id}}/edit" class="btn col-9 btn-primary justify-content-center btn-outline-light">Edit Profile</a>
+                </div>
+            @endcan
         </div>
 
         <div class="justify-content-center" >
@@ -33,11 +33,13 @@
             <div><a href="{{ $user->profile->url ?? 'https://cystar.co.ke'}}"> {{ $user->profile->url ?? 'https://cystar.co.ke'}}</a> </div>
         </div>
 
+
+                @can('update',$user->profile)
             <div class=" justify-content-center py-4">
-{{--                @can('update',$user->profile)--}}
-            <a href="/p/create/i" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit Post</a>
-{{--                @endcan--}}
-        </div>
+                <a href="/p/create/i" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit Post</a>
+            </div>
+                @endcan
+
 
     </div>
 

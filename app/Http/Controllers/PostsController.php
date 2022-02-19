@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Mavinoo\Batch\Batch;
 
 class PostsController extends Controller
 {
@@ -32,6 +33,7 @@ class PostsController extends Controller
         return view('posts/document');
 //        return view('posts/create');
     }
+
     public function preview()
     {
 
@@ -40,7 +42,7 @@ class PostsController extends Controller
 
         // PASSING DATA TO THE VIEW
 
-        return view('posts/preview',[
+        return view('posts/preview', [
             'user' => $user,
         ]);
 //        return view('posts/preview');
@@ -62,34 +64,25 @@ class PostsController extends Controller
         );
 
         $json = $data['image'];
-//        dd($data['image']);
         $img_desc = $data['image_description'];
-//        dd($img_desc);
-
         $someArray = json_decode($json, true);
-//        dd($someArray);
-        $someDesc = json_decode($img_desc,true);
+        $someDesc = json_decode($img_desc, true);
 
 
-
-        $a=array();
+        $a = array();
         $imagePath = 0;
 
-        foreach ($someArray as $key => $value)
-        {
+        foreach ($someArray as $key => $value) {
 //            echo $value["id"];
             if (empty($imagePath)) {
                 $imagePath = $value['image']; // Sets the first image as the default post image
 //                echo $temp . ' is considered empty';
             }
 
-            array_push($a,$value['id']);
-
-
+            array_push($a, $value['id']);
 
         }
-//        print_r($a);
-//        dd($a);
+
         $itemTypes = $a;
 
 //        $imagePath = request('image')->store('uploads','public');
@@ -112,24 +105,30 @@ class PostsController extends Controller
 
         ]);
 
-
-        dd($someDesc);
-
-//        foreach ($someDesc as $value)
-//        {
-//            dd($value);
-//        }
-////        dd($someDesc[0]);
-///TODO: Update the image description with different values based on image_id's
-///
-
-
-
-
-//        dd($data);
+        $template = ['id' => "", 'description' => ""];
+        $final = array();
+//        $keys_arr = array_combine($someDesc, $itemTypes);
+//        dd($itemTypes);
+        foreach ($itemTypes as $key => $value) {
+            $template['id'] = $value;
+            $template['description'] = $someDesc[$key];
+            array_push($final, $template);
+//            dd($template);
+        }
+//        dd($final);
 
 
-        return redirect('/profile/'.auth()->user()->id);
+//        $userInstance = new Images;
+        $item = new Images();
+        $userInstance = $item;
+        $value = $final;
+        $index = 'id';
+//        dd($final);
+
+        Batch::update($userInstance, $value, $index);
+
+
+        return redirect('/profile/' . auth()->user()->id);
 
     }
 
@@ -137,6 +136,6 @@ class PostsController extends Controller
     {
 //        dd($post);
         $images = $post;
-        return view('posts.show',compact('post','images'));
+        return view('posts.show', compact('post', 'images'));
     }
 }
