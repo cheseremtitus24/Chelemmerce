@@ -17,4 +17,6 @@ class Profile extends Model
     {
         return $this->hasMany(Images::class);
     }
+
+
 }

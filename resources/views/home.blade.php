@@ -7,36 +7,50 @@
 
         <div class="col-3 p-5">
             <a href="/profile/<?=auth()->user()->id?>"> <img src="/storage/{{auth()->user()->profile->image ?? 'profiles/default.jpg'}}" class="rounded-circle" style="height: 200px;width: 200px;"> </a>
-            <div class="d-flex justify-content-start">
-                <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light ">Edit Brand</a>
+            <div class="">
+                <div class="py-2" >
+                    <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light " style="width: 200px;height: 40px">Edit Brand</a>
+                </div>
+                <div class="py-2" >
+                    <a href="/p/create/i" class="btn btn-primary btn-outline-light " style="width: 200px;height: 40px">Add Post</a>
+                </div>
+
+{{--                    <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light ">Edit Brand</a>--}}
+{{--                </div>--}}
+
+
             </div>
 {{--            <a href="/profile/<?=auth()->user()->id?>"  class="btn btn-success d-flex justify-content-center"> My Profile </a>--}}
         </div>
-        <div class="col-9 p-5 " >
+        <div class="col-9 py-5 " >
+            @php
+            $profile = auth()->user();
+            @endphp
             <div >
-                <h1>Trending Podcasts</h1>
+                <h1>{{$profile->profile->title}}</h1>
             </div>
             <div class="d-flex">
-                <div style="padding-right: 25px"><strong>153</strong> Released</div>
-                <div style="padding-right: 25px"><strong>23k</strong> Available</div>
-                <div style="padding-right: 25px"><strong>212</strong> Top Rated</div>
+                <div style="padding-right: 25px"><strong>{{$profile->posts->count()}}</strong> posts</div>
+                <div style="padding-right: 25px"><strong>23k</strong> Followers</div>
+                <div style="padding-right: 25px"><strong>212</strong> Sales</div>
             </div>
             <div class="pt-4">
                 <strong>A Creative Mind Fiction</strong>
             </div>
-            <div> Alice Nelson and Carry Zylka provide stories. Lots and lots of stories.</div>
-            <div><a href="www.acreativemindfiction.com"> www.acreativemindfiction.com</a> </div>
+            <div> {{$profile->profile->description}}</div>
+            <div><a href="{{$profile->profile->url?? "https://www.cystar.co.ke"}}"> {{$profile->profile->url?? "https://www.cystar.co.ke"}}</a> </div>
         </div>
     </div>
 
-    <div class="container text-center">
-        <h1>Product card</h1>
-        <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> From: <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>
-    </div>
+
 
 
 
 </div>
+
+    <div class="container text-center">
+        <h1>Product card</h1>
+        {{--        <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> From: <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>--}}
 
 {{--    Codepen product cards--}}
 
@@ -80,6 +94,7 @@
 
         </div>
 
+    </div>
     </div>
 
 @endsection

@@ -103,7 +103,14 @@
 
 
 <h2 style="text-align:center">{{$post->title}}</h2>
-<h5 class="align-content-center fw-bold" style="text-align:center">{{$post->user->profile->title}}</h5>
+<h5 class="align-content-center fw-bold" style="text-align:center">
+    <a style="text-decoration:none" href="/profile/{{$post->user->id}}" >
+        <img   class="rounded-circle" width="30" height="30" src="/storage/{{$post->user->profile->image?? 'profiles/default.jpg'}}" >
+        <span>
+            {{$post->user->profile->title}}
+        </span>
+    </a>
+</h5>
 
 <div class="card-footer px-5">
     <div class="wcf-left align-items-baseline">
@@ -142,7 +149,7 @@
     </div>
 
 
-
+{{--TODO: Create thumbnails and employ Lazy Loading--}}
     <div class="row">
 
         @foreach($images->images as $images)
@@ -154,21 +161,7 @@
 
 
         @endforeach
-{{--        <div class="column">--}}
-{{--            <img class="demo cursor" src="/storage/{{$post->image}}" style="width:100%" onclick="currentSlide(2)" alt="Cinque Terre">--}}
-{{--        </div>--}}
-{{--        <div class="column">--}}
-{{--            <img class="demo cursor" src="/storage/{{$post->image}}" style="width:100%" onclick="currentSlide(3)" alt="Mountains and fjords">--}}
-{{--        </div>--}}
-{{--        <div class="column">--}}
-{{--            <img class="demo cursor" src="/storage/{{$post->image}}" style="width:100%" onclick="currentSlide(4)" alt="Northern Lights">--}}
-{{--        </div>--}}
-{{--        <div class="column">--}}
-{{--            <img class="demo cursor" src="/storage/{{$post->image}}" style="width:100%" onclick="currentSlide(5)" alt="Nature and sunrise">--}}
-{{--        </div>--}}
-{{--        <div class="column">--}}
-{{--            <img class="demo cursor" src="/storage/{{$post->image}}" style="width:100%" onclick="currentSlide(6)" alt="Snowy Mountains">--}}
-{{--        </div>--}}
+
     </div>
 </div>
 {{--Collapsible content--}}
