@@ -143,7 +143,7 @@
             </div>
 
             <div class="  py-4">
-                <a href="/p/create/i" class="btn   btn-primary  btn-outline-light ">Discard Updates</a>
+                <a href="/p/create/i" class="btn   btn-primary  btn-outline-light ">Save Updates</a>
             </div>
 
 
