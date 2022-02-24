@@ -23,8 +23,9 @@
 
             <div class="d-flex">
                 <div style="padding-right: 25px"><strong>{{$user->posts->count()}}</strong> posts</div>
-                <div style="padding-right: 25px"><strong>23k</strong> followers</div>
-                <div style="padding-right: 25px"><strong>212</strong> Sales</div>
+                <div style="padding-right: 25px"><strong>23k</strong> Today's Post Views</div>
+                <div style="padding-right: 25px"><strong>23k</strong> This Month's Purchases</div>
+                <div style="padding-right: 25px"><strong>212</strong> All Time Sales</div>
             </div>
             <div class="pt-4">
                 Brand Name: <strong>{{ $user->profile->title ?? "Default Title" }}</strong>
@@ -36,13 +37,18 @@
 
                 @can('update',$user->profile)
             <div class=" justify-content-center py-4">
-                <a href="/p/create/i" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit Post</a>
+                <a href="/p/edit" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit Posts</a>
             </div>
                 @endcan
 
 
     </div>
-
+    @can('update',$user->profile)
+    <div class="container text-center">
+        <h1>Product card</h1>
+        <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> From: <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>
+    </div>
+    @endcan
     <div class="shell">
 {{--        bootstrap has 12 columns in total--}}
         <div class="container">
