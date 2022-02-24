@@ -45,7 +45,10 @@ class DocumentController extends Controller
                 foreach ($files as $file)
                 {
                     $imagePath = $file->store('uploads','public');
-                    $image = Image::make(public_path("storage/{$imagePath}"))->fit(600,900);
+//                    dd("/storage/{$imagePath}");
+//                    dd(public_path("storage/{$imagePath}"));
+                    $image = Image::make(public_path("storage/{$imagePath}"))->fit(600,900);//->insert(public_path("storage/profiles/default.jpg"));
+//                    $image = Image::make("/storage/{$imagePath}")->fit(600,900);
                     $image->save();
                     $data = auth()->user()->images()->create(
                         [

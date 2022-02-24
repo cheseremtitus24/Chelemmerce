@@ -31,8 +31,9 @@
             </div>
             <div class="d-flex">
                 <div style="padding-right: 25px"><strong>{{$profile->posts->count()}}</strong> posts</div>
-                <div style="padding-right: 25px"><strong>23k</strong> Followers</div>
-                <div style="padding-right: 25px"><strong>212</strong> Sales</div>
+                <div style="padding-right: 25px"><strong>23k</strong> Today's Post Views</div>
+                <div style="padding-right: 25px"><strong>23k</strong> This Month's Purchases</div>
+                <div style="padding-right: 25px"><strong>212</strong> All Time Sales</div>
             </div>
             <div class="pt-4">
                 <strong>A Creative Mind Fiction</strong>

@@ -48,6 +48,21 @@ class PostsController extends Controller
 //        return view('posts/preview');
     }
 
+    public function edit()
+    {
+
+//        $user_profile = User::find($user);
+        $user = User::find(auth()->user()->id);
+
+        // PASSING DATA TO THE VIEW
+
+        return view('posts/edit', [
+            'user' => $user,
+        ]);
+//        return view('posts/preview');
+    }
+
+
     public function store()
     {
 
@@ -130,6 +145,18 @@ class PostsController extends Controller
 
         return redirect('/profile/' . auth()->user()->id);
 
+    }
+
+    public function posts_update(Posts $post)
+    {
+        $images = $post;
+        $user = User::find(auth()->user()->id);
+        return view('posts.posts_update', compact('post','images','user'));
+    }
+
+    public function destroy(Posts $post)
+    {
+        return redirect('/p/edit');
     }
 
     public function show(Posts $post) // Show the posts from the Images Table that match the current post

@@ -52,11 +52,12 @@
                     <div> Brand Description: {{ $user->profile->description ?? "Default Description"}}</div>
                     <div><a href="{{ $user->profile->url ?? 'https://cystar.co.ke'}}"> {{ $user->profile->url ?? 'https://cystar.co.ke'}}</a> </div>
                 </div>
-
+                @can('update',$user->profile)
                 <div class=" justify-content-center py-4">
 
                     <a href="/profile/{{$user->id}}/update_brand" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit Brand</a>
                 </div>
+                @endcan
 
     </form>
         </div>
