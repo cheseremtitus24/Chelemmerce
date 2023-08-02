@@ -134,17 +134,16 @@ class PostsController extends Controller
 
 
 //        $userInstance = new Images;
-        $item = new Images();
+        $item = new Images;
         $userInstance = $item;
         $value = $final;
         $index = 'id';
 //        dd($final);
 
-        Batch::update($userInstance, $value, $index);
+//        Batch::update($userInstance, $value, $index);
 
 
         return redirect('/profile/' . auth()->user()->id);
-
     }
 
     public function posts_update(Posts $post)
@@ -156,7 +155,12 @@ class PostsController extends Controller
 
     public function destroy(Posts $post)
     {
-        return redirect('/p/edit');
+//        DB::table('Posts')->where('id', $post)->delete();
+
+        $post->delete();
+
+
+        return redirect('/p/edit')->withSuccess(__('Post delete successfully.'));
     }
 
     public function show(Posts $post) // Show the posts from the Images Table that match the current post

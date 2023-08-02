@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-9 pt-5" >
                     <div >
-                        <h1>Trending Podcasts</h1>
+                        <h1>Trending Hats</h1>
                     </div>
                     <div class="d-flex">
                         <div style="padding-right: 25px"><strong>153</strong> Released</div>
@@ -22,16 +22,16 @@
                         <div style="padding-right: 25px"><strong>212</strong> Top Rated</div>
                     </div>
                     <div class="pt-4">
-                        <strong>A Creative Mind Fiction</strong>
+                        <strong>A Creative Culture</strong>
                     </div>
-                    <div> Alice Nelson and Carry Zylka provide stories. Lots and lots of stories.</div>
-                    <div><a href="www.acreativemindfiction.com"> www.acreativemindfiction.com</a> </div>
+                    <div> Trendy, Vintage, Cultural, Rare, Limited Edition Hats.</div>
+                    <div><a href="#"> www.hatsworld.com</a> </div>
                 </div>
             </div>
 
             <div class="container text-center">
-                <h1>Product card</h1>
-                <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> From: <i><a href="http://blog.wingerdstok.com" class="wsk-btn">Wingerdstok</a></i></span>
+                <h1>Product ShowCase</h1>
+                <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> From: <i><a href="<?= url('/login'); ?>" class="wsk-btn">Hats World - Click to Login & Share</a></i></span>
             </div>
 
 

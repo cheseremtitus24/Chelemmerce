@@ -6,10 +6,12 @@
 # php artisan ui bootstrap --auth
 composer install
 npm install && npm run dev
+npm audit fix
 # npm install resolve-url-loader@^5.0.0 --save-dev --legacy-peer-deps
 npm install
 npm run dev
-php artisan migrate
+php artisan key:generate
+php artisan migrate:fresh
 php artisan storage:link
 sudo apt install -y php-gd
 php artisan serve

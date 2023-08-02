@@ -21,7 +21,7 @@ class CreateImagesTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
 
-            $table->index('post_id');
+            $table->index('posts_id');
             $table->index('user_id');
         });
     }
