@@ -20,6 +20,7 @@ class CreateDocumentsTable extends Migration
 //            $table->string('description');
             $table->timestamps();
 
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->index('post_id');
         });
     }

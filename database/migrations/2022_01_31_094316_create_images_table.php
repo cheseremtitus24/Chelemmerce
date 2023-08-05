@@ -23,6 +23,8 @@ class CreateImagesTable extends Migration
 
             $table->index('posts_id');
             $table->index('user_id');
+            $table->foreign('posts_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

@@ -35,4 +35,8 @@ class Posts extends Model
     {
         return $this->hasMany(Images::class)->orderBy('created_at','DESC');
     }
+    public function postsratings()
+    {
+        return $this->hasMany(CreatePostsRatings::class)->orderBy('created_at','DESC');
+    }
 }

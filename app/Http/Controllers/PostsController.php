@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Images;
 use App\Models\Posts;
 use App\Models\User;
+use App\Models\PostsRatings;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -169,4 +170,5 @@ class PostsController extends Controller
         $images = $post;
         return view('posts.show', compact('post', 'images'));
     }
+
 }

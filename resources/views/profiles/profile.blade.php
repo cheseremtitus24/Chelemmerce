@@ -46,7 +46,7 @@
     @can('update',$user->profile)
     <div class="container text-center">
         <h1>Product card</h1>
-        <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> From: <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>
+        <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong>  <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>
     </div>
     @endcan
     <div class="shell">
@@ -75,7 +75,7 @@
                                         <p>{{ str_limit($post->description,108, ' ...')}}</p>
                                     </div>
                                     <div class="card-footer h-25">
-                                        <div class="p-lg-1 wcf-left"><span class="price">Rp {{$post->amount}}</span></div>
+                                        <div class="p-lg-1 wcf-left"><span class="price">$ {{$post->amount}}</span></div>
                                         <div class="wcf-right"><a href="#" class="buy-btn"><span class="iconify" data-icon="zmdi:shopping-cart"></span><i class="zmdi zmdi-shopping-basket"></i></a></div>
                                     </div>
                                 </div>

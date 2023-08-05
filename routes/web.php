@@ -32,6 +32,7 @@ Route::get('/save/create', [App\Http\Controllers\DocumentController::class, 'cre
 Route::get('/p/{post}', [App\Http\Controllers\PostsController::class, 'show']);
 Route::get('/d/{post}', [App\Http\Controllers\PostsController::class, 'destroy'])->middleware('auth');;
 Route::post('/p', [App\Http\Controllers\PostsController::class, 'store'])->middleware('auth');
+Route::post('/review-store',[App\Http\Controllers\PostsRatings::class, 'reviewstore'])->name('review.store')->middleware('auth');
 Route::post('/save', [App\Http\Controllers\DocumentController::class, 'saveDocument']);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/profile/{user}', [App\Http\Controllers\ProfilesController::class, 'index'])->name('profile.show');
