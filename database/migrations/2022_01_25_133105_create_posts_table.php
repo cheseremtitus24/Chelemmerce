@@ -28,6 +28,23 @@ class CreatePostsTable extends Migration
 
 
         });
+        $procedure = "CREATE OR REPLACE FUNCTION get_post_count(p_author_id IN posts.id%TYPE)
+                        RETURN NUMBER  IS   v_post_count NUMBER;
+
+                        BEGIN
+                            SELECT COUNT(id) INTO v_post_count    FROM posts   WHERE user_id = p_author_id;
+                            RETURN v_post_count;
+
+                        EXCEPTION
+
+                            WHEN NO_DATA_FOUND THEN
+                                RETURN 0; -- Author not found, return 0 posts
+                            WHEN OTHERS THEN
+                                RAISE; -- raise the exception
+
+                        END;";
+
+        \DB::unprepared($procedure);
     }
 
     /**
