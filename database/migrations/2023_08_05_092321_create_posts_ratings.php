@@ -23,7 +23,7 @@ class CreatePostsRatings extends Migration
 
             // set post_id and user_id to be a constraint that is unique
 
-            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+//            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

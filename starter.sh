@@ -4,6 +4,7 @@
 # cd FreeCodeGram
 # composer require laravel/ui
 # php artisan ui bootstrap --auth
+composer update
 composer install
 npm install && npm run dev
 npm audit fix
