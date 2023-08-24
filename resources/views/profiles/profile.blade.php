@@ -46,7 +46,7 @@
     @can('update',$user->profile)
     <div class="container text-center">
         <h1>Product card</h1>
-        <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong>  <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>
+        <span>Create With <i class="zmdi zmdi-favorite red"></i> <i><a href="/p/create/i" class="wsk-btn">Add Post</a></i></span>
     </div>
     @endcan
     <div class="shell">

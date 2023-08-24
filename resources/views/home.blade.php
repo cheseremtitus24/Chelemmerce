@@ -38,10 +38,10 @@
                 <div style="padding-right: 25px"><strong>212k</strong> All Time Sales</div>
             </div>
             <div class="pt-4">
-                <strong>HatsWorld Creative ShowCases</strong>
+                <strong>Best Buy ShowCases</strong>
             </div>
             <div> {{$profile->profile->description}}</div>
-            <div><a href="{{$profile->profile->url?? "https://www.cystar.co.ke"}}"> {{$profile->profile->url?? "https://www.cystar.co.ke"}}</a> </div>
+            <div><a href="{{$profile->profile->url?? "https://www.bestbuy.com"}}"> {{$profile->profile->url?? "https://www.bestbuy.com"}}</a> </div>
         </div>
     </div>
 

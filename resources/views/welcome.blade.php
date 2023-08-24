@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-9 pt-5" >
                     <div >
-                        <h1>Trending Hats</h1>
+                        <h1>Best Buy Brands</h1>
                     </div>
                     <div class="d-flex">
                         <div style="padding-right: 25px"><strong>153</strong> Released</div>
@@ -22,16 +22,16 @@
                         <div style="padding-right: 25px"><strong>212</strong> Top Rated</div>
                     </div>
                     <div class="pt-4">
-                        <strong>HatsWorld Creative ShowCases</strong>
+                        <strong>Best Buy ShowCases</strong>
                     </div>
-                    <div> Trendy, Vintage, Cultural, Rare, Limited Edition Hats.</div>
-                    <div><a href="#"> www.hatsworld.com</a> </div>
+                    <div> Trendy, Vintage, Cultural, Rare, Limited Edition.</div>
+                    <div><a href="#"> www.bestbuy.com</a> </div>
                 </div>
             </div>
 
             <div class="container text-center">
                 <h1>Product ShowCase</h1>
-                <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> <i><a href="<?= url('/login'); ?>" class="wsk-btn">Hats World - Click to Login & Share</a></i></span>
+                <span>Create With <i class="zmdi zmdi-favorite red"></i>  <i><a href="<?= url('/login'); ?>" class="wsk-btn">Best Buy - Click to Login & Share</a></i></span>
             </div>
 
 
