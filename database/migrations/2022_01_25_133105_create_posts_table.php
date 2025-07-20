@@ -28,7 +28,9 @@ class CreatePostsTable extends Migration
 
 
         });
-        $procedure = "CREATE OR REPLACE FUNCTION get_post_count(p_author_id IN posts.id%TYPE)
+        /**
+         Oracle Database.
+          $procedure = "CREATE OR REPLACE FUNCTION get_post_count(p_author_id IN posts.id%TYPE)
                         RETURN NUMBER  IS   v_post_count NUMBER;
 
                         BEGIN
@@ -43,6 +45,23 @@ class CreatePostsTable extends Migration
                                 RAISE; -- raise the exception
 
                         END;";
+
+
+         */
+
+        $procedure = "CREATE OR REPLACE FUNCTION get_post_count(p_author_id INT)
+                            RETURNS INT
+                            DETERMINISTIC
+                            BEGIN
+                                DECLARE v_post_count INT DEFAULT 0;
+
+                                SELECT COUNT(id)
+                                INTO v_post_count
+                                FROM posts
+                                WHERE user_id = p_author_id;
+
+                                RETURN v_post_count;
+                            END;";
 
         \DB::unprepared($procedure);
     }

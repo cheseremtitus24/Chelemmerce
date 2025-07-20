@@ -11,6 +11,8 @@ npm audit fix
 npm install
 npm run dev
 php artisan key:generate
+
+# when using Oracle comment out the ./database/migrations/2022_01_25_133105_create_posts_tale.php
 php artisan migrate:fresh
 php artisan storage:link
 sudo apt install -y php-gd
