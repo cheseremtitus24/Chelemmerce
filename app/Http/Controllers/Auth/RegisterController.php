@@ -77,8 +77,8 @@ class RegisterController extends Controller
         Profile::create([
             'user_id' => $user->id,
             "image"=>"/tmp/hello.png",
-            "title"=>"input title",
-            "description"=>"input description",
+            "title"=>"Your Brand/Company Name",
+            "description"=>"Company description",
             "url"=>"http://wiki.com"
         ]);
         return $user;

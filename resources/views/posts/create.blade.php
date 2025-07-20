@@ -237,7 +237,7 @@
 
 
         <form action="/p" enctype="multipart/form-data" method="post">
-            @csrf
+                @csrf
             <div class="row">
                 <div class="col-8 offset-2">
                     {{--                Posts Header--}}
@@ -252,10 +252,12 @@
                     {{--                Posts title--}}
 
                     <div class="form-group row">
-                        <label for="title" class="col-md-4 col-form-label">Product Title</label>
+                        <label for="title" class="col-md-4 col-form-label">Product Type</label>
+                        Types of homes: Bedsitter,Flat,Apartment,single room, Hotel, penthouse, Villas, Bungalow
                         <input type="text"
                                id="title"
                                name="title"
+                               placeholder="Bedsitter 1 Room 1 Bathroom"
                                class="form-control{{$errors->has('title') ? 'is-invalid':''}}"
                                value="{{old('title')}}"
                                autocomplete="title"
@@ -267,12 +269,30 @@
 
                         @endif
                     </div>
+                    {{--                Posts Name--}}
 
+                    <div class="form-group row">
+                        <label for="home_name" class="col-md-4 col-form-label">Your Home Name: </label>
+                        <input type="text"
+                               id="home_name"
+                               name="home_name"
+                               placeholder="Gianna Flats"
+                               class="form-control{{$errors->has('home_name') ? 'is-invalid':''}}"
+                               value="{{old('home_name')}}"
+                               autocomplete="home_name"
+                               autofocus>
+
+                        @if($errors->has('home_name'))
+
+                            <strong class="alert-danger">{{$errors->first('home_name')}}</strong>
+
+                        @endif
+                    </div>
 
                     {{--                    Posts Captions Description--}}
                     <div class="row">
                         {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
-                        <input type="text" name="image_description" value="" id="image_description" tabindex="-1"
+                        <input type="text" name="image_description" value="{{$images_list}}" id="image_description" tabindex="-1"
                                class="form-control-file visually-hidden">
 
                         @if($errors->has('image_description'))
@@ -300,9 +320,13 @@
                     {{--                Post Description--}}
                     <div class="form-group row">
                         <label for="description" class="col-md-4 col-form-label">Product Description</label>
+                        [City] [Suburb/Area] [LandMark/Well Known physical place]<br>
+                        [Nairobi] [CBD] [Opposite Afya Center]<br>
+                        Separate the Sections using dashes/minus symbol [-]
                         <input type="text"
                                id="description"
                                name="description"
+                               placeholder="Nairobi - CBD - Opposite Afya Center"
                                class="form-control{{$errors->has('description') ? 'is-invalid':''}}"
                                value="{{old('description')}}"
                                autocomplete="description"
@@ -318,9 +342,11 @@
                     {{--                Post Unit Amount--}}
                     <div class="form-group row">
                         <label for="amount" class="col-md-4 col-form-label">Product Price</label>
+                        can be per night, per week or per month
                         <input type="text"
                                id="amount"
                                name="amount"
+                               placeholder="700 per night"
                                class="form-control{{$errors->has('amount') ? 'is-invalid':''}}"
                                value="{{old('amount')}}"
                                autocomplete="amount"

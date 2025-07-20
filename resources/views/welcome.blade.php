@@ -14,7 +14,7 @@
                 </div>
                 <div class="col-9 pt-5" >
                     <div >
-                        <h1>Trending Hats</h1>
+                        <h1>Trending BnBs</h1>
                     </div>
                     <div class="d-flex">
                         <div style="padding-right: 25px"><strong>153</strong> Released</div>
@@ -22,16 +22,16 @@
                         <div style="padding-right: 25px"><strong>212</strong> Top Rated</div>
                     </div>
                     <div class="pt-4">
-                        <strong>HatsWorld Creative ShowCases</strong>
+                        <strong>BnBsWorld Hosting ShowCases</strong>
                     </div>
-                    <div> Trendy, Vintage, Cultural, Rare, Limited Edition Hats.</div>
-                    <div><a href="#"> www.hatsworld.com</a> </div>
+                    <div> Trendy, Vintage, Cultural, Rare, Limited Edition BnBs.</div>
+                    <div><a href="#"> www.bnbsworld.com</a> </div>
                 </div>
             </div>
 
             <div class="container text-center">
-                <h1>Product ShowCase</h1>
-                <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> <i><a href="<?= url('/login'); ?>" class="wsk-btn">Hats World - Click to Login & Share</a></i></span>
+                <h1>BnB Listings</h1>
+                <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> <i><a href="<?= url('/login'); ?>" class="wsk-btn">BnBs World - Click to Login & List your Home</a></i></span>
             </div>
 
 
@@ -182,7 +182,7 @@
 
 
 
-                                    <p class="font-weight-bold ">Rating</p>
+                                    <p class="font-weight-bold " style="padding-left: 13%">{{$post->home_name}}</p>
                                     <div class="form-group row">
                                         <input type="hidden" name="post_id" value="{{ $post->id }}">
                                         <div class="col">

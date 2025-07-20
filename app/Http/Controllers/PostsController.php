@@ -72,6 +72,7 @@ class PostsController extends Controller
             [
 //                'catch_phrase' => 'required',
                 'title' => 'required',
+                'home_name' => '',
                 'image' => 'required',
                 'image_description' => '',
                 'description' => 'required',
@@ -81,6 +82,7 @@ class PostsController extends Controller
 
         $json = $data['image'];
         $img_desc = $data['image_description'];
+        $home_name = $data['home_name'];
         $someArray = json_decode($json, true);
         $someDesc = json_decode($img_desc, true);
 
@@ -108,6 +110,7 @@ class PostsController extends Controller
         $post = auth()->user()->posts()->create(
             [
                 'title' => $data['title'],
+                'home_name' => $data['home_name'],
                 'image' => $imagePath,
                 'description' => $data['description'],
                 'amount' => $data['amount'],
@@ -135,10 +138,19 @@ class PostsController extends Controller
 
 
 //        $userInstance = new Images;
-        $item = new Images;
-        $userInstance = $item;
-        $value = $final;
-        $index = 'id';
+
+//         $item = new Images;
+//         $userInstance = $item;
+//         $value = $final;
+//         $index = 'id';
+
+        foreach ($final as $imageData) {
+    Images::where('id', $imageData['id'])->update([
+        'description' => $imageData['description']
+    ]);
+}
+
+
 //        dd($final);
 
 //        Batch::update($userInstance, $value, $index);
