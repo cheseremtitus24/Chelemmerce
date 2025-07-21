@@ -180,8 +180,6 @@
                                         }
                                     </style>
 
-
-
                                     <p class="font-weight-bold " style="padding-left: 13%">{{$post->home_name}}</p>
                                     <div class="form-group row">
                                         <input type="hidden" name="post_id" value="{{ $post->id }}">

@@ -32,7 +32,7 @@ class DocumentController extends Controller
         $images = request()->validate(
             [
                 'image' =>['required'],
-                'image.*' => 'mimes:jpeg,png,jpg,gif,svg'
+                'image.*' => 'mimes:jpeg,png,jpg,gif,svg,webp'
 
             ]
         );

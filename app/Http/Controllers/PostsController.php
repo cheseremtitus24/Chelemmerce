@@ -73,6 +73,9 @@ class PostsController extends Controller
 //                'catch_phrase' => 'required',
                 'title' => 'required',
                 'home_name' => '',
+                'telephone' => 'required',
+                'longitude' => '',
+                'latitude' => '',
                 'image' => 'required',
                 'image_description' => '',
                 'description' => 'required',
@@ -82,7 +85,8 @@ class PostsController extends Controller
 
         $json = $data['image'];
         $img_desc = $data['image_description'];
-        $home_name = $data['home_name'];
+        $phoneNumber = $data['telephone'];
+
         $someArray = json_decode($json, true);
         $someDesc = json_decode($img_desc, true);
 
@@ -104,13 +108,16 @@ class PostsController extends Controller
         $itemTypes = $a;
 
 //        $imagePath = request('image')->store('uploads','public');
-//        $image = Image::make(public_path("storage/{$imagePath}"))->fit(600,900);
-//        $image->save();
+        $image = Image::make(public_path("storage/{$imagePath}"))->fit(600,900);
+        $image->save();
 
         $post = auth()->user()->posts()->create(
             [
                 'title' => $data['title'],
                 'home_name' => $data['home_name'],
+                'latitude' => $data['latitude'],
+                'longitude' => $data['longitude'],
+                'telephone' => $data['telephone'],
                 'image' => $imagePath,
                 'description' => $data['description'],
                 'amount' => $data['amount'],

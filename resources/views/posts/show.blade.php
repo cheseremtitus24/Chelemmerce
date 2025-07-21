@@ -99,6 +99,21 @@
     .demo:hover {
         opacity: 1;
     }
+
+    .icon-button {
+        border: none;
+        background: none;
+        margin: 10px;
+        cursor: pointer;
+    }
+    .icon-button img {
+        width: 64px;
+        height: 64px;
+        transition: transform 0.2s;
+    }
+    .icon-button img:hover {
+        transform: scale(1.1);
+    }
 </style>
 
 
@@ -107,14 +122,15 @@
     <a style="text-decoration:none" href="/profile/{{$post->user->id}}" >
         <img   class="rounded-circle" width="30" height="30" src="/storage/{{$post->user->profile->image?? 'profiles/default.jpg'}}" >
         <span>
-            {{$post->user->profile->title}}
+{{--            {{$post->user->profile->title}}--}}
+            {{$post->home_name}}
         </span>
     </a>
 </h5>
 
 <div class="card-footer px-5">
     <div class="wcf-left align-items-baseline">
-        <span class="price">$ {{$post->amount}}</span>
+        <span class="price">KES {{$post->amount}}</span>
         <div class="col">
             <div class="rate">
                 <input type="radio" id="star_5" class="rate" name="rating" value="5"/>
@@ -144,11 +160,11 @@
 <div class="container" style="width: 350px; height: 700px">
 
 
-    @foreach($post->images as $post)
+    @foreach($post->images as $poster)
 
         <div class="mySlides">
             <div class="numbertext">{{$loop->index+1}} / {{$loop->count}}</div>
-            <img src="/storage/{{$post->image}}" style="width:100%">
+            <img src="/storage/{{$poster->image}}" style="width:100%">
         </div>
 
 
@@ -176,45 +192,89 @@
         @endforeach
 
     </div>
+        <div class="row">
+            @if(!empty($post->latitude) && !empty($post->longitude))
+                {{--<!-- Google Maps Button -->--}}
+                <a href="https://www.google.com/maps?q={{$post->latitude}},{{$post->longitude}}" target="_blank" class="icon-button">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2991/2991231.png" alt="Google Maps">
+                    Drive To {{$post->home_name}}
+                </a>
+            @endif
+
+                {{--<!-- WhatsApp Chat Button -->--}}
+            @if(!empty($post->telephone))
+                <a href="https://wa.me/{{$post->telephone}}" target="_blank" class="icon-button">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+                    Whatsapp {{$post->home_name}}
+                </a>
+
+                <a href="tel:{{$post->telephone}}" target="_blank" class="icon-button">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3059/3059502.png" alt="Phone">
+                    Call {{$post->home_name}}
+                </a>
+            @endif
+
+                {{--<!-- Telegram Chat Button -->--}}
+{{--                <a href="https://t.me/yourusername" target="_blank" class="icon-button">--}}
+{{--                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram">--}}
+{{--                    Telegram {{$post->home_name}}--}}
+{{--                </a>--}}
+                 {{--<!-- Telegram Chat Button -->--}}
+
+
+
+
+
+        </div>
+        {{-- Buttons  }}
+
+
 </div>
+
+
 {{--Collapsible content--}}
-<div class="container d-flex justify-content-center">
-    <p class="px-1">
+{{--<div class="container d-flex justify-content-center">--}}
+{{--    <p class="px-1">--}}
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Display Description
-        </button>
-    </p>
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-    </div>
-    <p class="px-1">
+{{--        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">--}}
+{{--            Display Description--}}
+{{--        </button>--}}
+{{--    </p>--}}
+{{--    <div class="collapse" id="collapseExample">--}}
+{{--        <div class="card card-body">--}}
+{{--            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--    <p class="px-1">--}}
 
-        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Total Spending
-        </button>
-    </p>
-    <div class="collapse" id="collapseExample">
-        <div class="card card-body">
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-        </div>
-    </div>
+{{--        <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">--}}
+{{--            Total Spending--}}
+{{--        </button>--}}
+{{--    </p>--}}
+{{--    <div class="collapse" id="collapseExample">--}}
+{{--        <div class="card card-body">--}}
+{{--            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.--}}
+{{--        </div>--}}
+{{--    </div>--}}
 
-</div>
+{{--</div>--}}
 
 <div class="d-flex justify-content-center">
 
-    <a href="
-    @if (!Auth::guest())
+{{--    <a href="--}}
+{{--    @if (!Auth::guest())--}}
 {{--        Load the user's home when  logged in else load Welcome Page--}}
-        /home
-    @else
-        /
-    @endif
-        " class="btn btn-primary btn-outline-light">Go to Posts</a>
+{{--        /home--}}
+{{--    @else--}}
+{{--        /--}}
+{{--    @endif--}}
+{{--        " class="btn btn-primary btn-outline-light">Go Back to Posts</a>--}}
 
+    <a href="@guest / @else javascript:void(0); @endguest"
+       class="btn btn-primary btn-outline-light"
+       @auth onclick="window.history.back();" @endauth>
+        Go Back to Posts
+    </a>
 
 </div>
 <br>

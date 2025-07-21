@@ -98,7 +98,7 @@
 
             $.each(data, function (index, file) {
 
-                if (/(\.|\/)(gif|jpe?g|png)$/i.test(file.type)) {
+                if (/(\.|\/)(gif|jpe?g|png|webp)$/i.test(file.type)) {
 
                     var fRead = new FileReader();
 

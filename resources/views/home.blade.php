@@ -41,12 +41,9 @@
                 <strong>HatsWorld Creative ShowCases</strong>
             </div>
             <div> {{$profile->profile->description}}</div>
-            <div><a href="{{$profile->profile->url?? "https://www.cystar.co.ke"}}"> {{$profile->profile->url?? "https://www.cystar.co.ke"}}</a> </div>
+            <div><a href="{{$profile->profile->url?? "https://www.paywifigo.me"}}"> {{$profile->profile->url?? "https://www.cystar.co.ke"}}</a> </div>
         </div>
     </div>
-
-
-
 
 
 </div>
