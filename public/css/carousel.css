@@ -1,0 +1,66 @@
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    cursor: grab;
+    background-color: #e0e0e0; /* A light background for images that don't cover the area */
+}
+.carousel-container {
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.carousel-container img {
+    flex-shrink: 0; /* Prevent images from shrinking */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    user-select: none;
+    pointer-events: none;
+}
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem; /* Smaller for cards */
+    background: rgba(0, 0, 0, 0.4);
+    border: none;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 5px;
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s;
+}
+.carousel-wrapper:hover .carousel-nav {
+    opacity: 1; /* Show on hover */
+}
+.carousel-nav.left { left: 5px; }
+.carousel-nav.right { right: 5px; }
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 10;
+}
+.carousel-indicators div {
+    width: 8px;
+    height: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    background: transparent;
+    transition: all 0.3s;
+}
+.carousel-indicators .active {
+    background: rgba(255, 255, 255, 0.9);
+}
+/* Hide indicators if there's only one image */
+.carousel-indicators.single-image {
+    display: none;
+}

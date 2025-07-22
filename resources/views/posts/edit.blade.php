@@ -106,7 +106,7 @@
                                             <p>{{ str_limit($post->description,108, ' ...')}}</p>
                                         </div>
                                         <div class="card-footer h-25">
-                                            <div class="p-lg-1 wcf-left"><span class="price">Rp {{$post->amount}}</span>
+                                            <div class="p-lg-1 wcf-left"><span class="price">KES {{$post->amount}}</span>
                                             </div>
                                             <div class="wcf-right"><a href="#" class="buy-btn"><span class="iconify"
                                                                                                      data-icon="zmdi:shopping-cart"></span><i
