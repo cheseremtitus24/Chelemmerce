@@ -14,8 +14,7 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
-        "mavinoo/laravel-batch": "^2.3",
-        "yajra/laravel-oci8": "^8.8"
+        "mavinoo/laravel-batch": "^2.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

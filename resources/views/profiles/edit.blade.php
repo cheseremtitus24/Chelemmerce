@@ -10,7 +10,7 @@
                     <div class="d-flex justify-content-center py-2">
                         <label for="image" style="position:relative; text-align: center;color: white;" >
                             <img src="/storage/{{$user->profile->image ?? "/profiles/default.jpg"}}" class="rounded-circle" style="height: 200px;width: 200px;">
-                            <div style="position: absolute; top:50%;left:50%;transform: translate(-50%,-50%);" class="btn btn-primary"> Edit Image  </div>
+                            <div style="position: absolute; top:50%;left:50%;transform: translate(-50%,-50%);" class="btn btn-primary"> Replace Image  </div>
 
                         </label>
                         <div class="row">
@@ -26,7 +26,7 @@
                         <strong class="alert-danger d-flex justify-content-center p-2">{{$errors->first('image')}}</strong>
                     @endif
                     <div class="d-flex justify-content-center">
-                        <input type="submit" value="Update Image" class="btn col-9 btn-success justify-content-center btn-outline-light">
+                        <input type="submit" value="Save Changes" class="btn col-9 btn-success justify-content-center btn-outline-light">
                     </div>
                 </div>
             </form>
@@ -55,7 +55,7 @@
                 @can('update',$user->profile)
                 <div class=" justify-content-center py-4">
 
-                    <a href="/profile/{{$user->id}}/update_brand" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit Brand</a>
+                    <a href="/profile/{{$user->id}}/update_brand" class="btn col-4  btn-primary justify-content-center btn-outline-light">Set Brand Name & Description</a>
                 </div>
                 @endcan
 

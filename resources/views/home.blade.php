@@ -9,7 +9,7 @@
             <a href="/profile/<?=auth()->user()->id?>"> <img src="/storage/{{auth()->user()->profile->image ?? 'profiles/default.jpg'}}" class="rounded-circle" style="height: 200px;width: 200px;"> </a>
             <div class="">
                 <div class="py-2" >
-                    <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light " style="width: 200px;height: 40px">Edit Brand</a>
+                    <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light " style="width: 200px;height: 40px">Update Brand</a>
                 </div>
                 <div class="py-2" >
                     <a href="/p/create/i" class="btn btn-primary btn-outline-light " style="width: 200px;height: 40px">Add Post</a>
