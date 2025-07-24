@@ -14,6 +14,8 @@ php artisan key:generate
 
 # when using Oracle comment out the ./database/migrations/2022_01_25_133105_create_posts_tale.php
 php artisan migrate:fresh
+rm  public/storage
 php artisan storage:link
+
 #sudo apt install -y php-gd
 php artisan serve

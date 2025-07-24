@@ -3,9 +3,43 @@
 {{--// todo: Add option to delete and replace images also user can change to sepia b/w and add HDR processing --}}
 {{--todo: click on the image title to update. a button should be at the far right and should be a pen.--}}
 @section('content')
-
+{{--    <link href="{{ asset('css/bnblistform.css') }}" rel="stylesheet">--}}
+    {{--    <script  src="{{ asset('js/script.js') }}"></script>--}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.8/build/css/intlTelInput.min.css"/>
     <style>
+           /*@import url("https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.8/build/css/intlTelInput.min.css");*/
+        .chip{
+            cursor: pointer;
+        }
+        .chip.active {
+            background-color: #007bff;
+            color: white;
+            border-radius: 10px;
+            padding: .3rem;
+        }
 
+        .house-type {
+            border: 1px solid #ddd;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .house-type img {
+            width: 100%;
+            max-height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .house-type.active {
+            border: 2px solid #007bff;
+        }
+
+        .hidden {
+            display: none;
+        }
 
         * {
             box-sizing: border-box;
@@ -98,9 +132,7 @@
         .demo:hover {
             opacity: 1;
         }
-    </style>
 
-    <style>
         .form-field {
             width: 400px;
             height: auto;
@@ -155,21 +187,24 @@
             background-color: transparent;
         }
 
-    </style>
-
-{{--    Overlay Leaflet OpenTreeMap--}}
-    <!-- Leaflet CSS -->
+</style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-
     <style>
-        html, body { height: 100%; margin: 0; padding: 0; }
-        #map { height: 100%; }
+        /*Overlay Leaflet OpenTreeMap
+        Leaflet CSS */
+        /*@import url("https://unpkg.com/leaflet/dist/leaflet.cs/");*/
+        /*<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>*/
+        #map {
+            height: 100%;
+        }
 
         /* Overlay styles */
         .overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-color: rgba(0, 0, 0, 0.7);
             display: none;
             flex-direction: column;
@@ -198,14 +233,16 @@
             cursor: pointer;
         }
 
-        .close-btn:hover { background: #900; }
+        .close-btn:hover {
+            background: #900;
+        }
 
         .controls {
             margin-top: 10px;
             background: white;
             padding: 10px;
             border-radius: 6px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
         .controls input, .controls button {
@@ -244,11 +281,12 @@
             z-index: 1100;
         }
 
-        #toast.visible { opacity: 1; }
+        #toast.visible {
+            opacity: 1;
+        }
+
+
     </style>
-
-    {{--<h2 style="text-align:center">Slideshow Gallery</h2>--}}
-
     <h2 style="text-align:center">{{$user->profile->title}}'s New Post</h2>
 
     <div class="container" style="width: 400px; height: 700px">
@@ -317,246 +355,379 @@
                 </script>
 
             @endforeach
-
-
-
-
-
-
         </div>
-
-
-        <form action="/p" enctype="multipart/form-data" method="post">
-                @csrf
+        <h2 class="mb-4">BnB Listing Form (Add Image Descriptions above e.g. Bedroom, Livingroom, Bathroom)</h2>
+        <form id="bnbForm" action="/p" enctype="multipart/form-data">
+            {{--                    Posts Captions Description--}}
             <div class="row">
-                <div class="col-8 offset-2">
-                    {{--                Posts Header--}}
-                    <div class="pt-3 d-flex justify-content-center align-items-baseline">
+                {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
+                <input type="text" name="image_description" value="{{$images_list}}" id="image_description" tabindex="-1"
+                       class="form-control-file visually-hidden">
 
-                        <h1>Product Details</h1>
-                        {{--                    <a href="/profile/<?=auth()->user()->id?>" class="btn col-3 btn-primary btn-outline-light w-25">save</a>--}}
+                @if($errors->has('image_description'))
 
+                    <strong class="alert-danger">{{$errors->first('image_description')}}</strong>
 
-                    </div>
+                @endif
 
-                    {{--                Posts title--}}
+            </div>
+            {{--                    Posts Captions--}}
+            <div class="row">
+                {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
+                <input type="text" name="image" value="{{$images_list}}" id="image" tabindex="-1"
+                       class="form-control-file visually-hidden">
 
-                    <div class="form-group row">
-                        <label for="title" class="col-md-4 col-form-label">Product Type</label>
-                        Types of homes: Bedsitter,Flat,Apartment,single room, Hotel, penthouse, Villas, Bungalow
-                        <input type="text"
-                               id="title"
-                               name="title"
-                               placeholder="Bedsitter 1 Room 1 Bathroom"
-                               class="form-control{{$errors->has('title') ? 'is-invalid':''}}"
-                               value="{{old('title')}}"
-                               autocomplete="title"
-                               autofocus>
+                @if($errors->has('image'))
 
-                        @if($errors->has('title'))
+                    <strong class="alert-danger">{{$errors->first('image')}}</strong>
 
-                            <strong class="alert-danger">{{$errors->first('title')}}</strong>
+                @endif
 
-                        @endif
-                    </div>
-                    {{--                Posts Name--}}
+            </div>
+{{--            Post Home Name--}}
+            <div class="mb-3">
+                <label for="home_name" class="form-label">Home Name (e.g. Gianna Flats)</label>
+                <input type="text" class="form-control" id="home_name"
+                       name="home_name" class="form-control{{$errors->has('home_name') ? 'is-invalid':''}}"
+                       value="{{old('home_name')}}"
+                       autocomplete="home_name"
+                       autofocus required/>
+                @if($errors->has('home_name'))
 
-                    <div class="form-group row">
-                        <label for="home_name" class="col-md-4 col-form-label">Your Home Name: </label>
-                        <input type="text"
-                               id="home_name"
-                               name="home_name"
-                               placeholder="Gianna Flats"
-                               class="form-control{{$errors->has('home_name') ? 'is-invalid':''}}"
-                               value="{{old('home_name')}}"
-                               autocomplete="home_name"
-                               autofocus>
+                    <strong class="alert-danger">{{$errors->first('home_name')}}</strong>
 
-                        @if($errors->has('home_name'))
+                @endif
 
-                            <strong class="alert-danger">{{$errors->first('home_name')}}</strong>
+            </div>
+{{--                Contact Number--}}
+            <div class="mb-3">
+                <label for="telephone" class="form-label">Caretaker Contact</label>
+                <input type="tel" id="telephone" name="telephone"
+                       class="form-control{{$errors->has('telephone') ? 'is-invalid':''}}"
+                       value="{{old('telephone')}}"
+                       autocomplete="telephone"
+                       autofocus required />
+                @if($errors->has('telephone'))
 
-                        @endif
-                    </div>
+                    <strong class="alert-danger">{{$errors->first('telephone')}}</strong>
 
-
-                    {{--                Posts Contact Number--}}
-
-                    <div class="form-group row">
-                        <label for="telephone" class="col-md-4 col-form-label">Handling Reservations Contact Number:  </label>
-                        Format: Country code +254 + phone number
-                        HINT: Hold SHIFT+'=' to get the + symbol on PC
-                        <input type="tel"
-                               id="telephone"
-                               name="telephone"
-                               placeholder="+254712345678"
-                               class="form-control{{$errors->has('telephone') ? 'is-invalid':''}}"
-                               value="{{old('telephone')}}"
-                               autocomplete="telephone"
-                               autofocus>
-
-                        @if($errors->has('telephone'))
-
-                            <strong class="alert-danger">{{$errors->first('telephone')}}</strong>
-
-                        @endif
-                    </div>
-
-
-
-                    {{--                    Posts Captions Description--}}
-                    <div class="row">
-                        {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
-                        <input type="text" name="image_description" value="{{$images_list}}" id="image_description" tabindex="-1"
-                               class="form-control-file visually-hidden">
-
-                        @if($errors->has('image_description'))
-
-                            <strong class="alert-danger">{{$errors->first('image_description')}}</strong>
-
-                        @endif
-
-                    </div>
-
-                    {{--                    Posts Captions--}}
-                    <div class="row">
-                        {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
-                        <input type="text" name="image" value="{{$images_list}}" id="image" tabindex="-1"
-                               class="form-control-file visually-hidden">
-
-                        @if($errors->has('image'))
-
-                            <strong class="alert-danger">{{$errors->first('image')}}</strong>
-
-                        @endif
-
-                    </div>
-
-                    <div class=" p-2 d-flex justify-content-center">
-                        <button type="button" id="setlocation" onclick="showOverlay()" class="btn btn-primary" >Click To Add Your Home To Google Maps</button>
-                    </div>
-
-                    {{--                    Posts Location latitude--}}
-                    <div class="row">
-                        {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
-                        <input type="text" name="latitude" value="" id="latitude" tabindex="-1"
-                               class="form-control-file visually-hidden">
-
-                        @if($errors->has('latitude'))
-
-                            <strong class="alert-danger">{{$errors->first('latitude')}}</strong>
-
-                        @endif
-
-                    </div>
-                    {{--                    Posts Location longitude--}}
-                    <div class="row">
-                        {{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
-                        <input type="text" name="longitude" value="" id="longitude" tabindex="-1"
-                               class="form-control-file visually-hidden">
-
-                        @if($errors->has('longitude'))
-
-                            <strong class="alert-danger">{{$errors->first('longitude')}}</strong>
-
-                        @endif
-
-                    </div>
-
-
-
-
-
-
-                    {{--                Post Description--}}
-                    <div class="form-group row">
-                        <label for="description" class="col-md-4 col-form-label">Product Location: </label>
-                        [City] [Suburb/Area] [LandMark/Well Known physical place]<br>
-                        [Nairobi] [CBD] [Opposite Afya Center]<br>
-                        Separate the Sections using dashes/minus symbol [-]
-                        <input type="text"
-                               id="description"
-                               name="description"
-                               placeholder="Nairobi - CBD - Opposite Afya Center"
-                               class="form-control{{$errors->has('description') ? 'is-invalid':''}}"
-                               value="{{old('description')}}"
-                               autocomplete="description"
-                               autofocus>
-
-                        @if($errors->has('description'))
-
-                            <strong class="alert-danger">{{$errors->first('description')}}</strong>
-
-                        @endif
-                    </div>
-
-                    {{--                Post Unit Amount--}}
-                    <div class="form-group row">
-                        <label for="amount" class="col-md-4 col-form-label">Product Price</label>
-                        can be per night, per week or per month
-                        <input type="text"
-                               id="amount"
-                               name="amount"
-                               placeholder="700 per night"
-                               class="form-control{{$errors->has('amount') ? 'is-invalid':''}}"
-                               value="{{old('amount')}}"
-                               autocomplete="amount"
-                               autofocus>
-
-                        @if($errors->has('amount'))
-
-                            <strong class="alert-danger">{{$errors->first('amount')}}</strong>
-
-                        @endif
-                    </div>
-
-                    {{--                Post Submit Button--}}
-                    <div class=" p-2 d-flex justify-content-center">
-                        <button class="btn btn-primary" >Post</button>
-                    </div>
-                    <a href="/p/create/f">preview</a>
-
+                @endif
+            </div>
+{{--                    House Type e.g. Apartment, Villa, Hotel--}}
+            <div class="mb-3">
+                <label class="form-label">Select House Type</label>
+                <div class="row g-2" id="houseTypeContainer">
+                    <!-- Dynamically inserted by JS -->
                 </div>
             </div>
 
-            <script>
-                const image_descriptions = new Array({{$total_images}}).fill("");
-                function GrabImageDescriptions() {
-                    for (let i = 1; i <= {{$total_images}}; i++) {
+            <!-- Room Type e.g. Private Room, Entire Home-->
+            <div class="mb-3">
+                <label for="accommodation_type" class="form-label">Accommodation Type</label>
+                <select name="accommodation_type" id="accommodation_type" class="form-select" required>
+                    <option value="" selected disabled>Choose...</option>
+                    <option>Private Room</option>
+                    <option>Shared Room</option>
+                    <option>Entire Home</option>
+                    <option>Dormitory</option>
+                    <option>Hostel</option>
+                    <option>Hotel Room</option>
+                </select>
+            </div>
+{{--                Number of Rooms--}}
+            <div class="mb-3">
+                <label class="form-label">Number of Rooms</label>
+                <input type="number" min="1" id="numRooms" class="form-control" name="num_rooms" />
+            </div>
+            {{--                Number of Bathrooms--}}
+            <div class="mb-3">
+                <label class="form-label">Number of Bathrooms</label>
+                <input type="number" min="1" id="numBaths" class="form-control" name="num_bathrooms" />
+            </div>
+{{--                        Location e.g. Westlands, Nairobi--}}
+            <div class="mb-3">
+                <label for="location" class="form-label">Location Name (e.g. Westlands, Nairobi)</label>
+                <input type="text" class="form-control" id="location"
+                       name="location" class="form-control{{$errors->has('location') ? 'is-invalid':''}}"
+                       value="{{old('location')}}"
+                       autocomplete="location"
+                       autofocus required />
+                @if($errors->has('location'))
 
-                        // Initialize our constant array that we'll use to store the image description and are accessible via indexes
+                    <strong class="alert-danger">{{$errors->first('location')}}</strong>
 
-                        // console.log( document.getElementById("reply" + i.toString()).value);
+                @endif
+            </div>
+{{--                Price priceType --}}
+            <div class="mb-3">
+                <label class="form-label">Price (in KES)</label>
+                <input type="number" min="0" id="price" class="form-control" name="price"
+                       class="form-control{{$errors->has('price') ? 'is-invalid':''}}"
+                       value="{{old('price')}}"
+                       autocomplete="price"
+                       autofocus
+                       required />
+                @if($errors->has('price'))
 
-                        if (document.getElementById("reply" + i.toString()).value.length != 0)
-                        {
-                            //Update the Image Card Description text by replacing it with user's input
-                            document.getElementById("image" + i.toString()).alt = document.getElementById("reply" + i.toString()).value;
+                    <strong class="alert-danger">{{$errors->first('price')}}</strong>
 
-                        }
-                        //Update array content with non empty strings
-                        image_descriptions[i-1] = document.getElementById("reply" + i.toString()).value;
-                        //First check that all the fields have been input then commit
+                @endif
+                <div class="mt-2" id="priceOptions">
+                    <span class="chip active" data-value="per_night">Per Night</span>
+                    <span class="chip" data-value="per_month">Per Month</span>
+                </div>
+                <input type="hidden" name="price_type" id="priceType" value="per_night" />
+            </div>
+{{--                latitude,longitude--}}
+            <div class="mb-3">
+                <label class="form-label">Latitude & Longitude</label>
+                <div class="input-group mb-2">
+                    <input type="text" id="latitude" name="latitude" class="form-control" placeholder="Latitude" readonly />
+                    @if($errors->has('latitude'))
 
-                    }
-                    var div = document.getElementById('image_description');
-                    let json = JSON.stringify(image_descriptions); // Convert array to json so that it is possible to save to html values
-                    div.value = json; // Saving to html form value
-                    console.log(div.value);
+                        <strong class="alert-danger">{{$errors->first('latitude')}}</strong>
 
-                }
+                    @endif
+                    <input type="text" id="longitude" name="longitude" class="form-control" placeholder="Longitude" readonly />
+                    @if($errors->has('longitude'))
 
-                document.getElementById("reply1").style.display = "block";
+                        <strong class="alert-danger">{{$errors->first('longitude')}}</strong>
 
+                    @endif
+                    <button type="button" id="setLocationBtn" class="btn btn-outline-primary">Set Location</button>
+                </div>
+            </div>
 
-            </script>
+            <div class=" p-2 d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary" >Post</button>
+            </div>
+{{--            <button type="submit" class="btn btn-primary">Post</button>--}}
         </form>
 
+{{--        <form action="/p" enctype="multipart/form-data" method="post">--}}
+{{--                @csrf--}}
+
+{{--            <div class="row">--}}
+{{--                <div class="col-8 offset-2">--}}
+{{--                                    Posts Header--}}
+{{--                    <div class="pt-3 d-flex justify-content-center align-items-baseline">--}}
+
+{{--                        <h1>Product Details</h1>--}}
+{{--                                            <a href="/profile/<?=auth()->user()->id?>" class="btn col-3 btn-primary btn-outline-light w-25">save</a>--}}
+
+
+{{--                    </div>--}}
+
+{{--                    --}}{{--                Posts title--}}
+
+{{--                    <div class="form-group row">--}}
+{{--                        <label for="title" class="col-md-4 col-form-label">Product Type</label>--}}
+{{--                        Types of homes: Bedsitter,Flat,Apartment,single room, Hotel, penthouse, Villas, Bungalow--}}
+{{--                        <input type="text"--}}
+{{--                               id="title"--}}
+{{--                               name="title"--}}
+{{--                               placeholder="Bedsitter 1 Room 1 Bathroom"--}}
+{{--                               class="form-control{{$errors->has('title') ? 'is-invalid':''}}"--}}
+{{--                               value="{{old('title')}}"--}}
+{{--                               autocomplete="title"--}}
+{{--                               autofocus>--}}
+
+{{--                        @if($errors->has('title'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('title')}}</strong>--}}
+
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                    --}}{{--                Posts Name--}}
+
+{{--                    <div class="form-group row">--}}
+{{--                        <label for="home_name" class="col-md-4 col-form-label">Your Home Name: </label>--}}
+{{--                        <input type="text"--}}
+{{--                               id="home_name"--}}
+{{--                               name="home_name"--}}
+{{--                               placeholder="Gianna Flats"--}}
+{{--                               class="form-control{{$errors->has('home_name') ? 'is-invalid':''}}"--}}
+{{--                               value="{{old('home_name')}}"--}}
+{{--                               autocomplete="home_name"--}}
+{{--                               autofocus>--}}
+
+{{--                        @if($errors->has('home_name'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('home_name')}}</strong>--}}
+
+{{--                        @endif--}}
+{{--                    </div>--}}
+
+
+{{--                    --}}{{--                Posts Contact Number--}}
+
+{{--                    <div class="form-group row">--}}
+{{--                        <label for="telephone" class="col-md-4 col-form-label">Handling Reservations Contact Number:  </label>--}}
+{{--                        Format: Country code +254 + phone number--}}
+{{--                        HINT: Hold SHIFT+'=' to get the + symbol on PC--}}
+{{--                        <input type="tel"--}}
+{{--                               id="telephone"--}}
+{{--                               name="telephone"--}}
+{{--                               placeholder="+254712345678"--}}
+{{--                               class="form-control{{$errors->has('telephone') ? 'is-invalid':''}}"--}}
+{{--                               value="{{old('telephone')}}"--}}
+{{--                               autocomplete="telephone"--}}
+{{--                               autofocus>--}}
+
+{{--                        @if($errors->has('telephone'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('telephone')}}</strong>--}}
+
+{{--                        @endif--}}
+{{--                    </div>--}}
+
+
+
+{{--                    --}}{{--                    Posts Captions Description--}}
+{{--                    <div class="row">--}}
+{{--                        --}}{{----}}{{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
+{{--                        <input type="text" name="image_description" value="{{$images_list}}" id="image_description" tabindex="-1"--}}
+{{--                               class="form-control-file visually-hidden">--}}
+
+{{--                        @if($errors->has('image_description'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('image_description')}}</strong>--}}
+
+{{--                        @endif--}}
+
+{{--                    </div>--}}
+
+{{--                    --}}{{----}}{{--                    Posts Captions--}}
+{{--                    <div class="row">--}}
+{{--                        --}}{{----}}{{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
+{{--                        <input type="text" name="image" value="{{$images_list}}" id="image" tabindex="-1"--}}
+{{--                               class="form-control-file visually-hidden">--}}
+
+{{--                        @if($errors->has('image'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('image')}}</strong>--}}
+
+{{--                        @endif--}}
+
+{{--                    </div>--}}
+
+{{--                    <div class=" p-2 d-flex justify-content-center">--}}
+{{--                        <button type="button" id="setlocation" onclick="showOverlay()" class="btn btn-primary" >Click To Add Your Home To Google Maps</button>--}}
+{{--                    </div>--}}
+
+{{--                    --}}{{--                    Posts Location latitude--}}
+{{--                    <div class="row">--}}
+{{--                        --}}{{----}}{{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
+{{--                        <input type="text" name="latitude" value="" id="latitude" tabindex="-1"--}}
+{{--                               class="form-control-file visually-hidden">--}}
+
+{{--                        @if($errors->has('latitude'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('latitude')}}</strong>--}}
+
+{{--                        @endif--}}
+
+{{--                    </div>--}}
+{{--                    --}}{{--                    Posts Location longitude--}}
+{{--                    <div class="row">--}}
+{{--                        --}}{{----}}{{--                    <label for="image" class="col-md-4 col-form-label" >Post Caption</label>--}}
+{{--                        <input type="text" name="longitude" value="" id="longitude" tabindex="-1"--}}
+{{--                               class="form-control-file visually-hidden">--}}
+
+{{--                        @if($errors->has('longitude'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('longitude')}}</strong>--}}
+
+{{--                        @endif--}}
+
+{{--                    </div>--}}
+
+{{--                    --}}{{--                Post Description--}}
+{{--                    <div class="form-group row">--}}
+{{--                        <label for="description" class="col-md-4 col-form-label">Product Location: </label>--}}
+{{--                        [City] [Suburb/Area] [LandMark/Well Known physical place]<br>--}}
+{{--                        [Nairobi] [CBD] [Opposite Afya Center]<br>--}}
+{{--                        Separate the Sections using dashes/minus symbol [-]--}}
+{{--                        <input type="text"--}}
+{{--                               id="description"--}}
+{{--                               name="description"--}}
+{{--                               placeholder="Nairobi - CBD - Opposite Afya Center"--}}
+{{--                               class="form-control{{$errors->has('description') ? 'is-invalid':''}}"--}}
+{{--                               value="{{old('description')}}"--}}
+{{--                               autocomplete="description"--}}
+{{--                               autofocus>--}}
+
+{{--                        @if($errors->has('description'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('description')}}</strong>--}}
+
+{{--                        @endif--}}
+{{--                    </div>--}}
+
+{{--                    --}}{{--                Post Unit Amount--}}
+{{--                    <div class="form-group row">--}}
+{{--                        <label for="amount" class="col-md-4 col-form-label">Product Price</label>--}}
+{{--                        can be per night, per week or per month--}}
+{{--                        <input type="text"--}}
+{{--                               id="amount"--}}
+{{--                               name="amount"--}}
+{{--                               placeholder="700 per night"--}}
+{{--                               class="form-control{{$errors->has('amount') ? 'is-invalid':''}}"--}}
+{{--                               value="{{old('amount')}}"--}}
+{{--                               autocomplete="amount"--}}
+{{--                               autofocus>--}}
+
+{{--                        @if($errors->has('amount'))--}}
+
+{{--                            <strong class="alert-danger">{{$errors->first('amount')}}</strong>--}}
+
+{{--                        @endif--}}
+{{--                    </div>--}}
+
+{{--                    --}}{{--                Post Submit Button--}}
+{{--                    <div class=" p-2 d-flex justify-content-center">--}}
+{{--                        <button class="btn btn-primary" >Post</button>--}}
+{{--                    </div>--}}
+{{--                    <a href="/p/create/f">preview</a>--}}
+
+{{--                </div>--}}
+{{--            </div>--}}
+
+{{--        </form>--}}
+
     </div>
+    <script>
+        const image_descriptions = new Array({{$total_images}}).fill("");
+        function GrabImageDescriptions() {
+            for (let i = 1; i <= {{$total_images}}; i++) {
 
+                // Initialize our constant array that we'll use to store the image description and are accessible via indexes
+
+                // console.log( document.getElementById("reply" + i.toString()).value);
+
+                if (document.getElementById("reply" + i.toString()).value.length != 0)
+                {
+                    //Update the Image Card Description text by replacing it with user's input
+                    document.getElementById("image" + i.toString()).alt = document.getElementById("reply" + i.toString()).value;
+
+                }
+                //Update array content with non empty strings
+                image_descriptions[i-1] = document.getElementById("reply" + i.toString()).value;
+                //First check that all the fields have been input then commit
+
+            }
+            var div = document.getElementById('image_description');
+            let json = JSON.stringify(image_descriptions); // Convert array to json so that it is possible to save to html values
+            div.value = json; // Saving to html form value
+            console.log(div.value);
+
+        }
+
+        document.getElementById("reply1").style.display = "block";
+
+
+    </script>
     {{--todo: Improve the image qualities by applying HDR High Dynamic Range using OpenCV --}}
-
-
     <script>
         var slideIndex = 1;
         showSlides(slideIndex);
@@ -739,7 +910,7 @@
             // saveToServer(pos.lat, pos.lng);
             document.getElementById('latitude').value = pos.lat;
             document.getElementById('longitude').value = pos.lng;
-            document.getElementById('setlocation').innerHTML = "Saved Successfully. Click Again to Update";
+            // document.getElementById('setlocation').innerHTML = "Saved Successfully. Click Again to Update";
 
         }
 
@@ -752,6 +923,141 @@
             document.getElementById('overlay').style.display = 'none';
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.8/build/js/intlTelInput.min.js"></script>
+    <script>
+    const houseTypes = [
+      { name: 'Bedsitter', img: 'https://example.com/bedsitter.jpg' },
+      { name: 'Single Room', img: 'https://example.com/single-room.jpg' },
+      { name: 'Hostel', img: 'https://example.com/hostel.jpg' },
+      { name: 'Apartment', img: 'https://example.com/apartment.jpg' },
+      { name: 'Maisonette', img: 'https://example.com/maisonette.jpg' },
+      { name: 'Bungalow', img: 'https://example.com/bungalow.jpg' },
+      { name: 'Villa', img: 'https://example.com/villa.jpg' },
+      { name: 'Hotel Room', img: 'https://example.com/hotel-room.jpg' }
+    ];
+
+    const container = document.getElementById("houseTypeContainer");
+    const numRooms = document.getElementById("numRooms");
+    const numBaths = document.getElementById("numBaths");
+
+    houseTypes.forEach((type, i) => {
+      const col = document.createElement("div");
+      col.className = "col-6 col-md-3";
+      col.innerHTML = `
+        <div class="house-type" data-type="${type.name}">
+          <img src="${type.img}" alt="${type.name}" />
+          <p>${type.name}</p>
+        </div>
+      `;
+      container.appendChild(col);
+    });
+
+    document.querySelectorAll(".house-type").forEach((el) => {
+      el.addEventListener("click", () => {
+        document.querySelectorAll(".house-type").forEach(e => e.classList.remove("active"));
+        el.classList.add("active");
+        const selected = el.dataset.type;
+        if (["Bedsitter", "Single Room"].includes(selected)) {
+          numRooms.value = "";
+          numRooms.disabled = true;
+          numBaths.value = "";
+          numBaths.disabled = selected === "Single Room";
+        } else {
+          numRooms.disabled = false;
+          numBaths.disabled = false;
+        }
+      });
+    });
+
+    const priceChips = document.querySelectorAll("#priceOptions .chip");
+    const priceType = document.getElementById("priceType");
+    priceChips.forEach(chip => {
+      chip.addEventListener("click", () => {
+        priceChips.forEach(c => c.classList.remove("active"));
+        chip.classList.add("active");
+        priceType.value = chip.dataset.value;
+      });
+    });
+
+    const phoneInput = intlTelInput(document.getElementById("telephone"), {
+      initialCountry: "auto",
+      geoIpLookup: callback => {
+        fetch("https://ipinfo.io/json?token=YOUR_TOKEN")
+          .then(resp => resp.json())
+          .then(data => callback(data.country))
+          .catch(() => callback("KE"));
+      },
+      utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@17.0.8/build/js/utils.js",
+    });
+
+    document.getElementById("setLocationBtn").addEventListener("click", () => {
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(pos => {
+        //         document.getElementById("latitude").value = pos.coords.latitude;
+        //         document.getElementById("longitude").value = pos.coords.longitude;
+        //     });
+        // } else {
+        //     alert("Geolocation is not supported");
+        // }
+          showOverlay()
+    });
 
 
+    document.getElementById("bnbForm").addEventListener("submit", async e => {
+        e.preventDefault(); // Prevent default form submission
+
+        const formData = new FormData(e.target);
+        // Assuming 'phoneInput' is defined globally or accessible here
+        formData.set("telephone", phoneInput.getNumber());
+
+        const houseType = document.querySelector(".house-type.active")?.dataset.type;
+        if (houseType) formData.set("home_type", houseType);
+        // Send data to backend here
+        console.log(Object.fromEntries(formData.entries()));
+        const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+        if (csrfToken) {
+            formData.set('_token', csrfToken); // Laravel expects the token as '_token' in form data
+        } else {
+            console.error("CSRF token not found! Form submission might fail.");
+            alert("Security token missing. Please refresh the page and try again.");
+            return; // Stop submission if token is not found
+        }
+        // alert("Form submitted!");
+        // Send data to backend here using fetch
+        try {
+            const response = await fetch('/p', {
+                method: 'POST', // Most likely 'POST' for form submissions that create data
+                body: formData, // FormData directly works with fetch and handles multipart/form-data
+            });
+
+            if (response.ok) {
+                // Form submitted successfully
+                const result = await response.json(); // If your backend returns JSON
+                console.log("Form submission successful:", result);
+                alert("Form submitted successfully!");
+                // Optionally, redirect or clear the form
+                // window.location.href = '/success-page';
+                // e.target.reset(); // Resets the form fields
+                if (result.redirect_url) {
+                    window.location.href = result.redirect_url;
+                } else {
+                    // If no redirect_url, maybe just reset form or show a success message
+                    e.target.reset();
+                }
+            } else {
+                // Server responded with an error status (e.g., 400, 500)
+                const errorData = await response.json(); // Assuming backend sends error details as JSON
+                console.error("Form submission failed:", response.status, errorData);
+                alert("Form submission failed: " + (errorData.message || "An error occurred."));
+            }
+        }
+        catch (error) {
+            // Network error or other issues
+            console.error("Error during form submission:", error);
+            alert("An error occurred while submitting the form. Please try again.");
+        }
+    });
+
+  </script>
+<script  src="{{ asset('js/bnblistform.js') }}"></script>
 @endsection
