@@ -5,43 +5,71 @@
 {{--    <script  src="{{ asset('js/script.js') }}"></script>--}}
 
 
-
-        <div class="container">
-            <div class="row">
-
-                <div class="col-3 p-5">
-                    <a href="#"> <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="rounded-circle" style="height: 200px;width: 200px;"> </a>
-                </div>
-                <div class="col-9 pt-5" >
-                    <div >
-                        <h1>Trending BnBs</h1>
-                    </div>
-                    <div class="d-flex">
-                        <div style="padding-right: 25px"><strong>153</strong> Released</div>
-                        <div style="padding-right: 25px"><strong>23k</strong> Available</div>
-                        <div style="padding-right: 25px"><strong>212</strong> Top Rated</div>
-                    </div>
-                    <div class="pt-4">
-                        <strong>BnBsWorld Hosting ShowCases</strong>
-                    </div>
-                    <div> Trendy, Vintage, Cultural, Rare, Limited Edition BnBs.</div>
-                    <div><a href="#"> www.bnbsworld.com</a> </div>
-                </div>
+    <div class="container my-4">
+        <div class="row align-items-center">
+            <div class="col-12 col-md-3 text-center mb-3 mb-md-0">
+                <a href="#">
+                    <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__480.jpg" class="rounded-circle img-fluid" style="height: 150px; width: 150px; object-fit: cover;">
+                </a>
             </div>
-
-            <div class="container text-center">
-                <h1>BnB Listings</h1>
-                <span>Create With <i class="zmdi zmdi-favorite red"></i>  By: <strong>Deni Kurniawan</strong> <i><a href="<?= url('/login'); ?>" class="wsk-btn">BnBs World - Click to Login & List your Home</a></i></span>
+            <div class="col-12 col-md-9 pt-md-5">
+                <div>
+                    <h1>Trending BnBs</h1>
+                </div>
+                <div class="d-flex flex-wrap mb-3">
+                    <div class="me-4 mb-2"><strong>153</strong> Released</div>
+                    <div class="me-4 mb-2"><strong>23k</strong> Available</div>
+                    <div class="me-4 mb-2"><strong>212</strong> Top Rated</div>
+                </div>
+                <div class="pt-2">
+                    <strong>BnBsWorld Hosting ShowCases</strong>
+                </div>
+                <div> Trendy, Vintage, Cultural, Rare, Limited Edition BnBs.</div>
+                <div><a href="#"> www.bnbsworld.com</a> </div>
             </div>
-
-
-
         </div>
 
+        <div class="container text-center my-5">
+            <h1>BnB Listings</h1>
+            <span>Create With <i class="zmdi zmdi-favorite red"></i> By: <strong>Deni Kurniawan</strong> <i><a href="<?= url('/login'); ?>" class="wsk-btn">BnBs World - Click to Login & List your Home</a></i></span>
+        </div>
+
+        <!-- Search Form (search.html) -->
+        <form method="GET" action="/" class="row g-3 align-items-center">
+            <div class="col-12 col-md-4">
+                <input type="text" name="location" class="form-control" placeholder="Location (e.g. Nairobi)" value="<?= htmlspecialchars($_GET['location'] ?? '') ?>" />
+            </div>
+            <div class="col-12 col-md-3">
+                <select name="home_type" class="form-select">
+                    <option value="">All House Types</option>
+                    <option value="Apartment" <?= ($_GET['home_type'] ?? '') == 'Apartment' ? 'selected' : '' ?>>Apartment</option>
+                    <option value="Bungalow" <?= ($_GET['home_type'] ?? '') == 'Bungalow' ? 'selected' : '' ?>>Bungalow</option>
+                    <option value="Villa" <?= ($_GET['home_type'] ?? '') == 'Villa' ? 'selected' : '' ?>>Villa</option>
+                    <option value="Maisonette" <?= ($_GET['home_type'] ?? '') == 'Maisonette' ? 'selected' : '' ?>>Maisonette</option>
+                    <option value="Bedsitter" <?= ($_GET['home_type'] ?? '') == 'Bedsitter' ? 'selected' : '' ?>>Bedsitter</option>
+                    <option value="Single Room" <?= ($_GET['home_type'] ?? '') == 'Single Room' ? 'selected' : '' ?>>Single Room</option>
+                    <option value="Hostel" <?= ($_GET['home_type'] ?? '') == 'Hostel' ? 'selected' : '' ?>>Hostel</option>
+                    <option value="Hotel Room" <?= ($_GET['home_type'] ?? '') == 'Hotel Room' ? 'selected' : '' ?>>Hotel Room</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-3">
+                <select name="price_type" class="form-select">
+                    <option value="">Any Pricing</option>
+                    <option value="per_night" <?= ($_GET['price_type'] ?? '') == 'per_night' ? 'selected' : '' ?>>Per Night</option>
+                    <option value="per_month" <?= ($_GET['price_type'] ?? '') == 'per_month' ? 'selected' : '' ?>>Per Month</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-2">
+                <button type="submit" class="btn btn-primary w-100">Search</button>
+            </div>
+        </form>
+
+    </div>
         <div class="shell">
             {{--        bootstrap has 12 columns in total--}}
             <div class="container">
                 <div class="row">
+                    @if($user->count())
                     @foreach($user as $post)
                         <div class="col-md-3">
                             <div class="wsk-cp-product">
@@ -76,7 +104,8 @@
                                         <h3>{{$post->title}}</h3>
                                     </div>
                                     <div class="description-prod">
-                                        <p>{{ str_limit($post->description, 108, " ...") }}</p>
+{{--                                        <p>{{ str_limit($post->description, 108, " ...") }}</p>--}}
+                                        <p>{{ $post->description}}</p>
                                     </div>
 
                                     {{-- NOTE: These styles should be moved to your main CSS file --}}
@@ -112,8 +141,13 @@
                         </div>
                     @endforeach
                 </div>
+                {{$user->links()}}
             </div>
-
+                </div>
+                @else
+                    <p>No listings found.</p>
+                @endif
+            </div>
         </div>
 
     <script src="{{ asset('js/carousel.js') }}" defer></script>

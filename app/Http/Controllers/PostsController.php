@@ -93,7 +93,8 @@ class PostsController extends Controller
         $json = $data['image'];
         $img_desc = $data['image_description'];
         $phoneNumber = $data['telephone'];
-        $Amount = $data['price'].' '.$data['price_type'];
+        $priceType = $data['price_type'] == 'per_night' ? "per Night" : "per Month";
+        $Amount = number_format($data['price'], 2).' '.$priceType;
 
         $HomeDescription = $data['location']. " - ".$data['accommodation_type'];
 

@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Http\Request;
 use App\Models\Posts;
 use Illuminate\Support\Facades\Route;
 
@@ -14,12 +14,45 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    $user = Posts::all()->sortByDesc('created_at');;
-//        return $this->hasMany(Posts::class)->orderBy('created_at','DESC');
-    return view('welcome',compact('user'));
-//    return view('welcome');
+//Route::get('/', function () {
+//    $user = Posts::all()->sortByDesc('created_at');
+////    $user = Posts::orderBy('created_at', 'desc')->paginate(5);
+////        return $this->hasMany(Posts::class)->orderBy('created_at','DESC');
+//    return view('welcome',compact('user'));
+////    return view('welcome');
+//});
+
+Route::get('/', function (Request $request) {
+    $query = Posts::query();
+
+    // Apply filters
+    if ($request->filled('location')) {
+        $query->where('location', 'like', '%' . $request->location . '%');
+    }
+
+    if ($request->filled('home_type')) {
+        $query->where('home_type', $request->home_type);
+    }
+
+    if ($request->filled('price_type')) {
+        $query->where('price_type', $request->price_type);
+    }
+
+    $page = $request->input('page', 1);
+
+    // Paginate results
+    $user = $query->orderBy('created_at', 'desc')
+        ->simplePaginate(8)
+        ->appends($request->query());
+
+    // Return 204 No Content if no data on pages > 1
+    if ($user->isEmpty() && $page > 1) {
+        return response()->noContent();
+    }
+
+    return view('welcome', compact('user'));
 });
+
 
 Auth::routes();
 
