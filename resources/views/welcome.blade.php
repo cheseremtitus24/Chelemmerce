@@ -65,7 +65,8 @@
         </form>
 
     </div>
-        <div class="shell">
+
+    <div class="shell">
             {{--        bootstrap has 12 columns in total--}}
             <div class="container">
                 <div class="row">
@@ -141,11 +142,21 @@
                         </div>
                     @endforeach
                 </div>
-                {{$user->links()}}
+                <div class="container">
+                    <div class="mx-auto">
+                        {{$user->links()}}
+                    </div>
+                </div>
+
             </div>
                 </div>
                 @else
-                    <p>No listings found.</p>
+                    <div class="row">
+                        <div class="col-6 mx-auto">
+                            <p>No listings found.</p>
+                        </div>
+                    </div>
+
                 @endif
             </div>
         </div>

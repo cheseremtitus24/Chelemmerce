@@ -17,10 +17,11 @@ class ProfilesController extends Controller
 //        dd(App\Models\Profile::find($user));
 //        dd(User::find($user));
         $user = User::findOrFail($user);
-
+        $posts = $user->posts()->Simplepaginate(8);
         // PASSING DATA TO THE VIEW
         return view('profiles.profile',[
             'user' => $user,
+            'posts' => $posts
         ]);
     }
 
@@ -31,6 +32,7 @@ class ProfilesController extends Controller
         return view('profiles.edit',compact('user'));
 
     }
+
     public function update_brand(User $user)
     {
         // with the following line an unauthenticated user can't access this page [policy]
