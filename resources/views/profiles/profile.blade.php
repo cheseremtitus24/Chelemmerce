@@ -13,7 +13,7 @@
                 @can('update',$user->profile)
                     <div class="d-flex justify-content-center">
                         <a href="/profile/{{$user->id}}/edit"
-                           class="btn col-9 btn-primary justify-content-center btn-outline-light">Update Profile</a>
+                           class="btn col-9 btn-primary justify-content-center btn-outline-light">Update Brand Name/Description/Picture Profile</a>
                     </div>
                 @endcan
             </div>
@@ -46,8 +46,8 @@
 
             @can('update',$user->profile)
                 <div class=" justify-content-center py-4">
-                    <a href="/p/edit" class="btn col-4  btn-primary justify-content-center btn-outline-light">Edit
-                        Posts</a>
+                    <a href="/p/edit" class="btn col-4  btn-primary justify-content-center btn-outline-light">Delete/Update
+                        Posts/Pricing</a>
                 </div>
             @endcan
 

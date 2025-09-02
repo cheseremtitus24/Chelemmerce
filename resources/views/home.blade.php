@@ -11,7 +11,7 @@
                     <img src="/storage/{{auth()->user()->profile->image ?? 'profiles/default.jpg'}}" class="rounded-circle img-fluid" style="height: 150px; width: 150px; object-fit: cover;">
                 </a>
                 <div class="mt-3 d-grid gap-2"> {{-- d-grid and gap-2 for button stacking --}}
-                    <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light">Update Brand</a>
+                    <a href="/profile/<?=auth()->user()->id?>" class="btn btn-primary btn-outline-light">Edit Brand/Posts</a>
                     <a href="/p/create/i" class="btn btn-primary btn-outline-light">Add Post</a>
                 </div>
             </div>

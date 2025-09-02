@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
 use Mavinoo\Batch\Batch;
+use Illuminate\Support\Facades\Storage;
 
 class PostsController extends Controller
 {
@@ -66,8 +67,8 @@ class PostsController extends Controller
 
     public function store()
     {
-        header('Content-Type: application/json'); // Crucial: Tell the client it's JSON
-        http_response_code(201); // Or 201 for Created
+        header('Content-Type: application/json');
+        http_response_code(201);
 //        $user_profile = User::find($user);
         $data = request()->validate(
             [
@@ -94,9 +95,9 @@ class PostsController extends Controller
         $img_desc = $data['image_description'];
         $phoneNumber = $data['telephone'];
         $priceType = $data['price_type'] == 'per_night' ? "per Night" : "per Month";
-        $Amount = number_format($data['price'], 2).' '.$priceType;
+        $Amount = number_format($data['price'], 2) . ' ' . $priceType;
 
-        $HomeDescription = $data['location']. " - ".$data['accommodation_type'];
+        $HomeDescription = $data['location'] . " - " . $data['accommodation_type'];
 
         $title = $data['home_type'];
         $numRooms = $data['num_rooms'] ?? 0;
@@ -116,8 +117,7 @@ class PostsController extends Controller
 
         if (!empty($parts)) {
             $TitleDescription = $title . " - " . implode(" ", $parts);
-        }
-        else {
+        } else {
             $TitleDescription = $title;
         }
 
@@ -142,7 +142,7 @@ class PostsController extends Controller
         $itemTypes = $a;
 
 //        $imagePath = request('image')->store('uploads','public');
-        $image = Image::make(public_path("storage/{$imagePath}"))->fit(600,900);
+        $image = Image::make(public_path("storage/{$imagePath}"))->fit(600, 900);
         $image->save();
 
         $title = "";
@@ -170,7 +170,6 @@ class PostsController extends Controller
         Images::whereIn('id', $itemTypes)// Update the grabbed image index with the current post_id
         ->update([
             'posts_id' => "$post->id",
-//            'description' => 'Up',
 
         ]);
 
@@ -184,30 +183,11 @@ class PostsController extends Controller
             array_push($final, $template);
 //            dd($template);
         }
-//        dd($final);
-
-
-//        $userInstance = new Images;
-
-//         $item = new Images;
-//         $userInstance = $item;
-//         $value = $final;
-//         $index = 'id';
 
         foreach ($final as $imageData) {
-    Images::where('id', $imageData['id'])->update([
-        'description' => $imageData['description']
-    ]);}
-
-//        echo json_encode(['success' => true, 'message' => 'Form submitted successfully!', 'data' => '/profile/' . auth()->user()->id]);
-
-
-//        dd($final);
-
-//        Batch::update($userInstance, $value, $index);
-
-
-//        return redirect('/profile/' . auth()->user()->id);
+            Images::where('id', $imageData['id'])->update([
+                'description' => $imageData['description']]);
+        }
 
 
         return response()->json([
@@ -223,16 +203,28 @@ class PostsController extends Controller
     {
         $images = $post;
         $user = User::find(auth()->user()->id);
-        return view('posts.posts_update', compact('post','images','user'));
+        return view('posts.posts_update', compact('post', 'images', 'user'));
     }
 
     public function destroy(Posts $post)
     {
 //        DB::table('Posts')->where('id', $post)->delete();
+        // Delete images linked to the post
+        foreach ($post->images as $image) {
+            if ($image->image && Storage::disk('public')->exists($image->image)) {
+                Storage::disk('public')->delete($image->image);
+            }
+            // delete database entry for the image.
+            $image->delete();
+        }
 
+        // Delete the post's main image if it exists
+        if ($post->image && Storage::disk('public')->exists($post->image)) {
+            Storage::disk('public')->delete($post->image);
+        }
+
+        // Delete the post record
         $post->delete();
-
-
         return redirect('/p/edit')->withSuccess(__('Post delete successfully.'));
     }
 
