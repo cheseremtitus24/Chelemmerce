@@ -50,18 +50,42 @@ class PostsController extends Controller
 //        return view('posts/preview');
     }
 
-    public function edit()
+
+
+    public function edit(Request $request)
     {
+        $user = auth()->user();
 
-//        $user_profile = User::find($user);
-        $user = User::find(auth()->user()->id);
+        // Query only this user's posts
+        $query = $user->posts();
 
-        // PASSING DATA TO THE VIEW
+        // Apply filters only if values are non-empty
+        if ($request->filled('location')) {
+            $query->where('location', 'like', '%' . $request->location . '%');
+        }
 
-        return view('posts/edit', [
-            'user' => $user,
-        ]);
-//        return view('posts/preview');
+        if ($request->filled('home_type')) {
+            $query->where('home_type', $request->home_type);
+        }
+
+        if ($request->filled('price_type')) {
+            $query->where('price_type', $request->price_type);
+        }
+
+        $page = $request->input('page', 1);
+
+        // Paginate results
+        $posts = $query
+            ->orderBy('created_at', 'desc')
+            ->simplePaginate(8)
+            ->appends($request->query()); // preserve query params in pagination links
+
+        // Return 204 if empty on non-first page
+        if ($posts->isEmpty() && $page > 1) {
+            return response()->noContent();
+        }
+
+        return view('posts.edit', compact('user', 'posts'));
     }
 
 
