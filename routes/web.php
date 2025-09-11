@@ -61,6 +61,7 @@ Route::get('/p/create/i', [App\Http\Controllers\PostsController::class, 'documen
 Route::get('/p/create/f', [App\Http\Controllers\PostsController::class, 'preview'])->middleware('auth');
 Route::get('/p/edit', [App\Http\Controllers\PostsController::class, 'edit'])->middleware('auth');
 Route::get('/p/edit/{post}', [App\Http\Controllers\PostsController::class, 'posts_update'])->middleware('auth');
+Route::get('/p/edit/price/{post}', [App\Http\Controllers\PostsController::class, 'post_price_update'])->middleware('auth');
 Route::get('/save/create', [App\Http\Controllers\DocumentController::class, 'create']);
 Route::get('/p/{post}', [App\Http\Controllers\PostsController::class, 'show']);
 Route::get('/d/{post}', [App\Http\Controllers\PostsController::class, 'destroy'])->middleware('auth');;

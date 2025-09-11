@@ -230,6 +230,13 @@ class PostsController extends Controller
         return view('posts.posts_update', compact('post', 'images', 'user'));
     }
 
+    public function post_price_update(Posts $post)
+    {
+        $images = $post;
+        $user = User::find(auth()->user()->id);
+        return view('posts.posts_update', compact('post', 'images', 'user'));
+    }
+
     public function destroy(Posts $post)
     {
 //        DB::table('Posts')->where('id', $post)->delete();
